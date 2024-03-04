@@ -8,6 +8,7 @@ def get_layer(model,point):
     """
     get model's partition layer
     """
+    # 这个Layer应该是边缘端的层数
     if point == 0:
         layer = None
     else:

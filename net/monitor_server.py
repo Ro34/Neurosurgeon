@@ -39,6 +39,7 @@ class MonitorServer(Process):
         super(MonitorServer, self).__init__()
         self.ip = ip
         self.port = port
+        # 监测间隔
         self.interval = interval
 
 
