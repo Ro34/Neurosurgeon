@@ -65,15 +65,23 @@ def model_training_linear(filepath,threshold,get_datasets_func,model_path,save=F
     :param save: 是否保存模型参数
     :return: model
     """
+    # 用于读取数据集并返回特征（data_features）和目标（data_targets）数据
     data_features, data_targets = get_datasets_func(filepath)
+    # 数据集分为训练集和测试集
     x_train, x_test, y_train, y_test = train_test_split(data_features.values, data_targets, test_size=0.1,random_state=0)
+    # 线性回归模型对象
     lr = LinearRegression()
+    # 模型对训练数据进行拟合
     lr.fit(x_train,y_train)
 
+    # 用已经训练好的回归模型进行预测
     y_pred_test = lr.predict(x_test)
+
     print('training model for ' + model_path)
+    # 计算测试集预测结果的均绝对误差
     print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred_test))
 
+    # 进行预测
     y_pred_train = lr.predict(x_train)
     # acc = get_accuracy(y_train.values.tolist(), y_pred_train, threshold=threshold)
     # print(f"train dataset accuracy : {acc * 100:.2f}%")
@@ -105,10 +113,13 @@ def evaluate_model(model,threshold,get_datasets_func):
     :param get_datasets_func: 获取数据集
     :return:
     """
+    # 用于读取数据集并返回特征（data_features）和目标（data_targets）数据
     data_features, data_targets = get_datasets_func()
+    # 分割
     x_train, x_test, y_train, y_test = train_test_split(data_features, data_targets, test_size=0.15, random_state=0)
 
     y_pred_test = model.predict(x_test)
+    # 均值绝对误差MAE  均方根误差RMSE
     print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred_test))
     print('Root Mean Square Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred_test)))
 

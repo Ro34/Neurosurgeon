@@ -30,13 +30,17 @@ def neuron_surgeon_deployment(model,network_type,define_speed,show=False):
     为DNN模型选取最优划分点
     :param model: DNN模型
     :param network_type: 3g or lte or wifi
-    :param define_speed: bandwidth
+    :param define_speed: bandwidth 带宽
     :param show: 是否展示
     :return: 选取的最优partition_point
     """
+    # 延迟结果
     res_lat = None
+    # 最优划分点索引 
     res_index = None
+    # 最优层索引
     res_layer_index = None
+    # 预测字典（存放不同环境的延迟）
     predictor_dict = {}
 
     layer_index = 0     # 标记layer顺序 - 指no-skip layer
